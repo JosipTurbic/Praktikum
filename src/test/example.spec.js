@@ -59,6 +59,10 @@ describe('fizz buz problem', function() {
     function(){
         expect(fizzBuzz(35)).to.equal("BuzzSuzz");
     });
+    it('if number is dividable with 3 & 5 & 7 should return FizzBuzzSuzz' ,
+    function(){
+        expect(fizzBuzz(105)).to.equal("FizzBuzzSuzz");
+    });
 });
 
 //R-G-R

@@ -11,7 +11,7 @@ let pricelist = [
     {from: "2020-05-16", to: "2020-06-15", price: 37.0},
 ];
 
-describe('hotel price list test', function() {
+describe.skip('hotel price list test', function() {
     it('priceListFormatter should be a function', function () {
         priceListFormatter(pricelist.slice(0,1));
     });

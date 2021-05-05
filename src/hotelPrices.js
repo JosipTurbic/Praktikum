@@ -1,15 +1,22 @@
-let pricelist=
-[
-    {from: '2020-01-01', to: '2020-02-01', price: 34.5},
-    {from: '2020-02-02', to: '2020-03-01', price: 37.0},
-    {from: '2020-03-02', to: '2020-05-15', price: 39.0},
-    {from: '2020-05-16', to: '2020-06-15', price: 37.0},
-   ];
+function priceListFormatter(pricelist) {
+  res = ""; 
+  values = [];
+  sorted = pricelist.sort((x, y) => { return x.price - y.price; });
+  
+  for(const el of sorted) 
+      values.push(el.price);
 
+  values = [...new Set(values)];
 
+  for (x in values) {
+      res += `${values[x].toFixed(1)} :`;
+      sorted.forEach(function (el) {
+          if(el.price === values[x]) res += ` ${el.from} do ${el.to}`;
+      });
+      res+= ` \n`;
+  }
 
-
-function pricelistFormatter(pricelist){
-
+  return res;
 }
-module.exports = pricelistFormatter;
+
+module.exports = priceListFormatter;

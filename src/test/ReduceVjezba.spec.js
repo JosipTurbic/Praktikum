@@ -1,7 +1,7 @@
 const chai = require('chai');
 const { expect } = chai;
 
-describe('Reduce exercise', function () {
+describe.skip('Reduce exercise', function () {
 
 it('reduce test 1', function(){
     let sum = [1,2,3,4,5].reduce((prev, curr)=>prev + curr);

@@ -1,7 +1,7 @@
 const chai = require('chai');
 const { expect } = chai;
 
-describe('forEach exercise', function () {
+describe.skip('forEach exercise', function () {
 
     it('forEach test 1', function(){
         var sum = 0;

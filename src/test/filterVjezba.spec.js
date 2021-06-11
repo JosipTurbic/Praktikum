@@ -1,7 +1,7 @@
 const chai = require('chai');
 const { expect } = chai;
 
-describe('filter exercise', function () {
+describe.skip('filter exercise', function () {
 
 it('filter test 1', function(){
 var ages = [32, 33, 16, 40];

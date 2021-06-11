@@ -1,0 +1,101 @@
+<script>
+    var width = 400;
+    var height = 400;
+    var grid = createGrid(width);
+    var nextGrid = createGrid(height);
+    
+    for (var j = 0; j < width; j++) { //first loop
+        for (var k = 0; k < height; k++) { //second loop
+            grid[j][k] = Math.floor(Math.random() * 2);
+           
+        }
+    }
+    
+    //functions 
+    function drawGrid() {
+        //this is first part of function
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.clearRect(0, 0, 400, 400);
+        for (var j = 1; j < width; j++) { //first loop
+            for (var k = 1; k < height; k++) { //second loop
+                if (grid[j][k] === 1) {
+                    ctx.fillStyle = "#FF0000";
+                    ctx.fillRect(j, k, 1, 1);
+                }
+            }
+        }
+        //this is second part of the function
+        calculateStateOfGrid();
+        requestAnimationFrame(drawGrid);
+    }
+    
+    function createGrid(visina) {
+        var arrayOfCells = [];
+        for (var i = 0; i < visina; i++) {
+            arrayOfCells[i] = [];
+        }
+        return arrayOfCells;
+    }
+    
+    function calculateStateOfGrid() { //this is second part of the function
+        for (var j = 1; j < width - 1; j++) { //first loop
+            for (var k = 1; k < height - 1; k++) { //second loop
+                //apply the rules to each cell
+                if (grid[j][k] === 0) {
+                    switch (grid[j - 1][k - 1] + grid[j - 1][k] + grid[j - 1][k + 1] + grid[j][k - 1] + grid[j][k + 1] + grid[j + 1][k - 1] + grid[j + 1][k] + grid[j + 1][k + 1]) {
+                        case 1:
+                        case 2:
+                        nextGrid[j][k] = 0; //sets the value to 0
+                            break;
+                        case 3:
+                        nextGrid[j][k] = 1; //sets the value to 1
+                            break;
+                        case 4:
+                        nextGrid[j][k] = 1;
+                        case 5:
+                        nextGrid[j][k] = !(nextGrid[j][k] | !nextGrid[j][k]);
+                        default:
+                        nextGrid[j][k] = 0; //sets the value to 0
+                    }
+                } else if (grid[j][k] === 1) {
+                    switch (grid[j - 1][k - 1] + grid[j - 1][k] + grid[j - 1][k + 1] + grid[j][k - 1] + grid[j][k + 1] + grid[j + 1][k - 1] + grid[j + 1][k] + grid[j + 1][k + 1]) {
+                        case 0:
+                        case 1:
+                        nextGrid[j][k] = (nextGrid[j][k] | !nextGrid[j][k]);
+                            break;
+                        case 2:
+                        nextGrid[j][k] = (nextGrid[j][k] | !nextGrid[j][k]);
+                        case 3:
+                        nextGrid[j][k] = 1;
+                            break;
+                        case 4:
+                        case 5:
+                        nextGrid[j][k] = (nextGrid[j][k] & !nextGrid[j][k]);
+                        case 6:
+                        case 7:
+                        case 8:
+                        nextGrid[j][k] = 0;
+                            break;
+                        default:
+                        nextGrid[j][k] = 0;
+              
+                    }
+    
+                }
+            }
+        }
+    
+        for (var j = 0; j < width; j++) {
+            for (var k = 0; k < height; k++) {
+                grid[j][k] = nextGrid[j][k];
+    
+            }
+        }
+    }
+    </script>
+    <html>
+        <body onload="drawGrid()">
+            <canvas id="myCanvas" width="400" height="400"></canvas>
+        </body>
+    </html>
